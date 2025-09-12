@@ -39,6 +39,7 @@ Funzionalità per **UTENTE** (ROLE_USER):
 - Rimuovere una prenotazione
 - Modificare una prenotazione
 - Visionare le prenotazioni effettuate collegate all'utente che ha effettuato l'accesso in quel momento
+
 Funzionalità per **ADMIN** (ROLE_ADMIN):
 - Visionare tutte le prenotazioni presenti di ogni **UTENTE**
 - Eliminare le prenotazioni di qualsiasi **UTENTE**
