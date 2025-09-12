@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifica o elimina prenotazione</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/modificaPrenotazione.css">
+    <script src="/js/modificaPrenotazione.js" defer ></script>
+</head> 
+
+<body>
+    <video autoplay muted loop id="videoBackground" src="/immagini/6011721_Person_People_3840x2160 (1).mp4"></video>
+    <div id="contenitore-navBar">
+        <ul id="navBar">
+            <li><i class="fa-solid fa-utensils"></i><a href="EasyTableHome.html">Prenota ora!</a></li>
+            <li><i class="fa-solid fa-circle-info"></i><a href="infoEasyTable.html">Come funziona il nostro sito?</a></li>
+            <li><i class="fa-solid fa-user-pen"></i><a href="modificaPrenotazione.html">Elimina o modifica prenotazione</a></li>
+            <li><i class="fa-solid fa-lock"></i><a href="admin.html">Admin</a></li>
+            <li id="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</li>
+        </ul>
+    </div>
+    <div id="mainContent">
+        <div id="contenitore-modificaPrenotazione">
+            <h2>Modifica la tua prenotazione</h2>
+            <form action="" id="formPrenotazione">
+                <label for="">Inserisci l'id della prenotazione che vuoi modificare:<i class="fa-solid fa-info"></i></label>
+                <input type="number" id='idPrenotazione' placeholder="Inserisci l'id">
+                <label for="">Inserisci il nuovo giorno della prenotazione<i class="fa-solid fa-calendar-days"></i></label>
+                <input type="date" id='formGiorno' placeholder="Inserisci il giorno">
+                <label for="">Inserisci il nuovo orario della prenotazione:<i class="fa-solid fa-clock"></i></label>
+                <input type="time" id='formOrario' placeholder="inserisci l'orario">
+                <label for="">Inserisci il nuovo  numero delle persone:<i class="fa-solid fa-users"></i></label>
+                <input type="number" id="formNumeroPersone" min="1" value="1" placeholder="inserisci il numero delle persone">
+                <input type="submit" id="pulsanteForm" value="Modifica prenotazione">
+            </form>
+        </div>
+        <div>
+    
+        </div>
+        <div id="contenitoreEliminaPrenotazione">
+            <form action="" id="eliminaForm">
+                  <label for="">Inserisci l'id della prenotazione che vuoi Eliminare:<i class="fa-solid fa-trash-can"></i></label>
+                <input type="number" id='idEliminaPrenotazione' placeholder="Inserisci l'id">
+                <input type="submit" id="elimina" value="Elimina la prenotazione">
+                </form>
+        </div>
+            
+        
+    </div>
+</body>
+
+</html>

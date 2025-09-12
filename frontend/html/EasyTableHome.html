@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagina pricipale EasyTable</title>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="/css/EasyTable.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <script src="/js/EasyTableHome.js" defer></script>
+</head>
+<body>
+    <video autoplay muted loop id="videoBackground" src="/immagini/VideoGruppo.mp4"></video>
+    <div id="contenitore-navBar">
+        <ul id="navBar">
+            <li><i class="fa-solid fa-utensils"></i><a href="EasyTableHome.html">Prenota ora!</a></li>
+            <li><i class="fa-solid fa-circle-info"></i><a href="infoEasyTable.html">Come funziona il nostro sito?</a></li>
+            <li><i class="fa-solid fa-user-pen"></i><a href="modificaPrenotazione.html">Elimina o modificaprenotazione</a></li>
+            <li><i class="fa-solid fa-lock"></i><a href="admin.html">Admin</a></li>
+            <li id="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</li>
+        </ul>
+    </div>
+    <div id="mainContent">
+        <div id="contenitore-aggiungiPrenotazione">
+            <h2>Prenota ora il tuo tavolo</h2>
+            <form action="" id="formPrenotazione">
+                <label for="">Inserisci il nome:<i class="fa-solid fa-signature"></i></label>
+                <input type="text" id="formNome" placeholder="inserisci il tuo nome">
+                <label for="">Inserisci il cognome:<i class="fa-solid fa-signature"></i></label>
+                <input type="text" id="formCognome" placeholder="inserisci il tuo cognome">
+                <label for="">Inserisci il numero di telefono:<i class="fa-solid fa-mobile-screen-button"></i></label>
+                <input type="text" id="formNumeroTelefono" placeholder="inserisci il tuo numero">
+                <label for="">Seleziona il giorno della tua prenotazione:<i class="fa-solid fa-calendar-days"></i></label>
+                <input type="date" id='formGiorno' placeholder="inserisci il giorno della tua prenotazione">
+                <label for="">Seleziona l'orario:<i class="fa-solid fa-clock"></i></label>
+                <input type="time" id='formOrario' placeholder="inserisci l'orario della tua prenotazione">
+                <label for="">Numero persone:<i class="fa-solid fa-users"></i></label>
+                <input type="number" id="formNumeroPersone" min="1" value="1"placeholder="inserisci il numero delle persone">
+                <input type="submit" id="pulsanteForm" value="Prenota ora!">
+            </form>
+        </div>
+        <div id="listaPrenotazioni">
+            <div id="contenutoDashBoard">
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
