@@ -17,6 +17,7 @@ import com.EasyTable.Entity.Utente;
  * deleteByIdAndUtente elimina una prenotazione identificata da id e utente
  * findAllPrenotazioneByUtente restituisce la lista di prenotazioni associate all'utente
  * findAll restituisce tutte le prenotazioni presenti nel sistema
+ * findPrenotazioneByIdAndUtente restituisce una prenotazione in base all'id della prenotazione e all'utente
  */
 @Repository
 public interface PrenotazioneRepository extends JpaRepository <Prenotazione, Long> { 
@@ -24,6 +25,7 @@ public interface PrenotazioneRepository extends JpaRepository <Prenotazione, Lon
 	void deleteByIdAndUtente(Long idPrenotazione, Utente utente);
 	List  <Prenotazione> findAllPrenotazioneByUtente(Utente utente);
 	List <Prenotazione> findAll();
+	Prenotazione findPrenotazioneByIdAndUtente(Long id, Utente utente);
 
 	
 

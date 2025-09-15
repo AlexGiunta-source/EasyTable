@@ -1,8 +1,9 @@
 package com.EasyTable.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,11 +27,13 @@ import jakarta.transaction.Transactional;
 public class PrenotazioneService {
 	
 	final private PrenotazioneMapper prenotazioneMapper; 
+	final private EmailService emailService;
 	
 	
-	public PrenotazioneService(PrenotazioneMapper prenotazioneMapper) {
+	public PrenotazioneService(PrenotazioneMapper prenotazioneMapper, EmailService emailService) {
 		super();
 		this.prenotazioneMapper = prenotazioneMapper;
+		this.emailService = emailService;
 	}
 
 	@Autowired
@@ -40,6 +43,7 @@ public class PrenotazioneService {
 	
 	/**
 	 * Salva la prenotazione in base all'utente loggato
+	 * Dopo aver salvato la prenotazione, invia un'email di conferma all'utente
 	 * @param prenotazioneDto contiene i dati della prenotazione da salvare
 	 * @param email usata per cercare l'utente nel database
 	 * @return salvataggio della prenotazione
@@ -51,12 +55,17 @@ public class PrenotazioneService {
 				.orElseThrow(() -> new UtenteNonTrovatoException("Utente non trovato, impossibile completare l'operazione."));
 		Prenotazione nuovaPrenotazione = prenotazioneMapper.fromDto(prenotazioneDto);
 		nuovaPrenotazione.setUtente(convalidaUtente);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		LocalDateTime oraEGiornoPrenotazione = prenotazioneDto.getPrenotazioneGiornoOra();
+		String  prenotazioneFormattata = oraEGiornoPrenotazione.format(formatter);
+		emailService.inviaEmail(convalidaUtente.getEmail(), "Riepilogo prenotazione", "La tua prenotazione è stata fissata il giorno e alle ore:" + " " + prenotazioneFormattata);
 		return prenotazioneRepository.save(nuovaPrenotazione);
 		
 	}
 	/**
 	 * Elimina le prenotazioni collegate all'utente loggato in quel momento.
 	 * Cerca la prenotazione in base all'id, se esiste la elimina.
+	 * Dopo aver eliminato la prenotazione, invia un'email di conferma all'utente.
 	 * @param id l'id della prenotazione da eliminare
 	 * @param email usata per cercare l'utente nel database
 	 * @return 
@@ -65,15 +74,16 @@ public class PrenotazioneService {
 	@Transactional
 	public void eliminaPrenotazionePerUtente(Long id, String email) {
 		
-		Optional <Utente> convalidaUtente = utenteRepository.findByEmail(email);
-		if(convalidaUtente.isEmpty()) {
-			throw new UtenteNonTrovatoException("Utente non trovato, impossibile esegure l'operazione.");
-		}
-		Utente utenteLoggato = convalidaUtente.get();
+		Utente convalidaUtente = utenteRepository.findByEmail(email).orElseThrow(() -> new UtenteNonTrovatoException("Utente non trovato, impossibile completare l'operazione."));
 		if(prenotazioneRepository.findById(id).isEmpty()) {
 			throw new PrenotazioneNonTrovataException("Prenotazione non trovata,impossibile eseguire l'operazione.");
 		}
-		prenotazioneRepository.deleteByIdAndUtente(id, utenteLoggato);
+		Prenotazione datiPrenotazione = prenotazioneRepository.findPrenotazioneByIdAndUtente(id, convalidaUtente);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		LocalDateTime GiornoEOraPrenotazione = datiPrenotazione.getPrenotazioneGiornoOra();
+		String giornoEoraPrenotazioneFormattata = GiornoEOraPrenotazione.format(formatter);
+		prenotazioneRepository.deleteByIdAndUtente(id, convalidaUtente);
+		emailService.inviaEmail(convalidaUtente.getEmail(), "Prenotazione con id:" + " " + id + "eliminata con successo", "La prenotazione del giorno e alle ore:"+  " " + giornoEoraPrenotazioneFormattata + " " + "è stata eliminata con successo" );
 	}
 	
 	/**

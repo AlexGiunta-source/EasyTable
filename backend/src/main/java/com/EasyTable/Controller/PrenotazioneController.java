@@ -38,7 +38,7 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/")
 public class PrenotazioneController {
-
+	
 	@Autowired 
 	UtenteService utenteService;
 	@Autowired
@@ -222,4 +222,5 @@ public class PrenotazioneController {
 		}
 	
 }
+
 }
